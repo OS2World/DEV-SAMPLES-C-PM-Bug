@@ -1,0 +1,35 @@
+# IBM Developer's Workframe/2 Make File Creation run at 20:26:14 on 10/09/91
+
+# Make File Creation run in directory:
+
+.SUFFIXES:
+
+.SUFFIXES: .c .rc
+
+ALL: bug.EXE \
+     bug.RES
+
+bug.exe:  \
+  main.OBJ \
+  bug.RES \
+  bug.def \
+  bug
+   @REM @<<bug.@0
+     /ST:4000 /PM:PM +
+     main.OBJ
+     bug.exe
+
+
+     bug.def;
+<<
+   LINK386.EXE @bug.@0
+   RC bug.RES bug.exe
+
+{.}.rc.res:
+   RC -r .\$*.RC
+
+{.}.c.obj:
+   ICC.EXE /Ss /O+ /C /L- /Fa+ .\$*.c
+
+!include bug.DEP
+

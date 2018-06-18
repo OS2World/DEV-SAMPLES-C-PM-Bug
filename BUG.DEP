@@ -1,0 +1,28 @@
+# IBM Developer's Workframe/2 Make File Creation run at 20:26:14 on 10/09/91
+
+# Make File Creation run in directory:
+#   C:\SCRNPAIN\OSHELL;
+
+# Assumed INCLUDE environment variable path:
+#   C:\IBMWF\TOOLKT20\C\OS2H;
+#   C:\IBMWF\TOOLKT20\MASM\OS2INC;
+#   C:\IBMC\INCLUDE;
+
+
+bug.RES:  bug.RC  \
+   {.;$(INCLUDE)}OS2.H  \
+#    {.;$(INCLUDE)}OS2DEF.H  \
+#    {.;$(INCLUDE)}BSE.H  \
+#    {.;$(INCLUDE)}BSEDOS16.H  \
+#    {.;$(INCLUDE)}PM.H  \
+   bug
+
+main.OBJ:  main.C  \
+#    {$(INCLUDE);}os2.h  \
+#    {$(INCLUDE);}stdio.h  \
+#    {$(INCLUDE);}stdlib.h  \
+#    {$(INCLUDE);}string.h  \
+#    {$(INCLUDE);}ctype.h  \
+   bug
+
+
