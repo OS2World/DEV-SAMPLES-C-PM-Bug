@@ -25,38 +25,38 @@ HWND        old;
 BOOL        hidden;
 HWND        hwndnext;
 
-POINTL      bug[BUG_POINTS] = { 0,0,
-                        8,8,
-                        8,9,
-                        8,8,
-                        6,4,
-                        7,4,
-                        8,5,
-                        9,5,
-                        8,5,
-                        7,4,
-                        2,4,
-                        1,5,
-                        0,5,
-                        1,5,
-                        2,4,
-                        5,1,
-                        4,1,
-                        3,2,
-                        7,2,
-                        9,0,
-                        1,8,
-                        1,9,
-                        1,8,
-                        3,6,
-                        3,5,
-                        3,3,
-                        6,3 };
+POINTL      bug[BUG_POINTS] = { {0,0},
+                        {8,8},
+                        {8,9},
+                        {8,8},
+                        {6,4},
+                        {7,4},
+                        {8,5},
+                        {9,5},
+                        {8,5},
+                        {7,4},
+                        {2,4},
+                        {1,5},
+                        {0,5},
+                        {1,5},
+                        {2,4},
+                        {5,1},
+                        {4,1},
+                        {3,2},
+                        {7,2},
+                        {9,0},
+                        {1,8},
+                        {1,9},
+                        {1,8},
+                        {3,6},
+                        {3,5},
+                        {3,3},
+                        {6,3} };
 
-#pragma linkage ( WinProc,system )
-MRESULT WinProc ( HWND hwnd, USHORT msg, MPARAM mp1, MPARAM mp2 );
+// #pragma linkage ( WinProc,system )
+MRESULT WinProc ( HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2 );
 
-#pragma linkage ( thread,system )
+// #pragma linkage ( thread,system )
 VOID thread (ULONG arg)
 {
    DATETIME  dt;
@@ -96,16 +96,16 @@ int main ( int argc, char *argv[] )
    DosCreateThread ( &tid, (PFNTHREAD)thread, 1, 0, 8000 );
 
    WinRegisterClass(hab,
-                    "BUG",
-                    WinProc,
+                    (PCSZ) "BUG",
+                    (PFNWP) WinProc,
                     CS_SIZEREDRAW | CS_SYNCPAINT,
                     0);
 
    hframe = WinCreateStdWindow(HWND_DESKTOP,
            0,
            &fs,
-           "BUG",
-           "",
+           (PCSZ) "BUG",
+           (PCSZ) "",
            0L,
            0L,
            1,
@@ -158,7 +158,7 @@ int main ( int argc, char *argv[] )
  *
  ***************************************************************/
 
-MRESULT WinProc ( HWND hwnd, USHORT msg, MPARAM mp1, MPARAM mp2 )
+MRESULT WinProc ( HWND hwnd, ULONG msg, MPARAM mp1, MPARAM mp2 )
 {
    HPS   hps;
    RECTL rc;
@@ -193,7 +193,7 @@ MRESULT WinProc ( HWND hwnd, USHORT msg, MPARAM mp1, MPARAM mp2 )
          break;
 
       case WM_TIMER:
-         if ((USHORT)mp1 == 1)
+         if ((int)mp1 == 1)
             {
             WinPostMsg ( hwnd, BUG_MOVE, (MPARAM)hwndnext, 0 );
             }
@@ -238,7 +238,7 @@ MRESULT WinProc ( HWND hwnd, USHORT msg, MPARAM mp1, MPARAM mp2 )
             hwndnext = WinGetNextWindow  ( henum );
             if (hwndnext != hframe)
                {
-               if (hwndnext == NULL)
+               if (hwndnext == NULLHANDLE)
                   {
                   out = TRUE;
                   }
@@ -322,4 +322,3 @@ MRESULT WinProc ( HWND hwnd, USHORT msg, MPARAM mp1, MPARAM mp2 )
 
 return(WinDefWindowProc(hwnd, msg, mp1, mp2));
 }
-

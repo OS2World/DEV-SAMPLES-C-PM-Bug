@@ -5,14 +5,15 @@ BUG - a window that hides behind others. A little program to test Z ordering of 
 
 LICENSE
 ===============
-* Not Specified
+* BSD 3-Clauses
 
 COMPILE TOOLS
 ===============
-* 
+* yum install git gcc make libc-devel binutils watcom-wrc watcom-wlink-hll
  
 AUTHORS
 ===============
+* Martin Iturbide (2023)
 * Paul Montgomery
 
 LINKS
